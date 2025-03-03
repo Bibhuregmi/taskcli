@@ -2,6 +2,8 @@ package main;
 
 import java.util.Scanner;
 
+import main.handlers.InputHandler;
+
 public class Main {
 
     //creating the instance of the taskmanager and having it static so that the main methdod can access it, having it inside of the main method would create the taskmanager object evertime the main method runs causing problem to the program 
@@ -38,23 +40,21 @@ public class Main {
     }
 
     private static void addTask(){
-        System.out.println("Enter task id: ");
-        int id = in.nextInt();
-        in.nextLine();
-        
-        System.out.println("Enter your task title: ");
-        String title = in.nextLine(); 
+            int id = InputHandler.getValidInteger(in, "Enter task id: ");
+            
+            System.out.println("Enter your task title: ");
+            String title = in.nextLine(); 
 
-        System.out.println("Enter your task desription: ");
-        String description = in.nextLine(); 
+            System.out.println("Enter your task desription: ");
+            String description = in.nextLine(); 
 
-        Task task = new Task(id, title, description);
-        taskmanager.addTask(task);
+            Task task = new Task(id, title, description);
+            taskmanager.addTask(task);
     }
 
     private static void removeTask(){
         System.out.println("Enter the id of the task: ");
-        int id = in.nextInt();   //TODO: Requires exception handling for the type mismatch 
+        int id = in.nextInt(); 
         in.nextLine(); 
         taskmanager.removeTask(id);
     }
