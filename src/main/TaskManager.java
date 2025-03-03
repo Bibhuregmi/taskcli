@@ -1,5 +1,5 @@
 package main;
-
+import main.utils.ANSI;
 import java.util.concurrent.CopyOnWriteArrayList;;
 
 public class TaskManager {
@@ -13,20 +13,20 @@ public class TaskManager {
     //method to add new task 
     public void addTask(Task task){
         tasks.add(task);
-        System.out.println("New task has been created!");
+        System.out.println(ANSI.GREEN_BOLD + "New task has been created!" + ANSI.RESET); //.RESET ensures that only the intended text is styled and rest of the output remains same
     }
 
     //method to remove the task
     public int removeTask(int id){
         if(tasks.isEmpty()){
-            System.out.println("No any tasks were found to remove! Please add tasks before removing!");
+            System.out.println(ANSI.RED_BOLD + "No any tasks were found to remove! Please add tasks before removing!" + ANSI.RESET);
         }
         for(Task task : tasks){
             if(task.getId() != id){
-                System.out.println("No any task with id " + id + " was found! Please input correct id again");
+                System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
             }else{
                 tasks.remove(task);
-                System.out.println("Task with id " + id + " was removed successfully!" );
+                System.out.println(ANSI.GREEN_BOLD +"Task with id " + id + " was removed successfully!" + ANSI.RESET);
             }
         }
         return id; 
@@ -35,7 +35,7 @@ public class TaskManager {
     //method to show all the task
     public void showAllTasks(){
         if(tasks.isEmpty()){
-            System.out.println("No any  tasks to show");
+            System.out.println(ANSI.RED_BOLD + "No any  tasks to show" + ANSI.RESET);
         }else{
             for(Task task : tasks){
                 System.out.println(task.toString());
@@ -46,13 +46,13 @@ public class TaskManager {
     //method to set completed stauts 
     public void setStatusCompleted(int id){
         if(tasks.isEmpty()){
-            System.out.println("No any tasks were found to remove! Please add tasks before changing stautus!");
+            System.out.println(ANSI.RED_BOLD + "No any tasks were found to remove! Please add tasks before changing stautus!" + ANSI.RESET);
         }for(Task task : tasks){
             if(task.getId() != id){
-                System.out.println("No any task with id " + id + " was found! Please input correct id again");
+                System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
             }else{
                 task.markCompleted();
-                System.out.println("Task with id " + id + " is marked completed!" );
+                System.out.println(ANSI.GREEN_BOLD + "Task with id " + id + " is marked completed!" + ANSI.RESET);
             }
         }
     }
@@ -60,16 +60,15 @@ public class TaskManager {
     //method to set incompleted status
     public void setStautsIncomplete(int id){
         if(tasks.isEmpty()){
-            System.out.println("No any tasks were found to remove! Please add tasks before changing stautus!");
+            System.out.println(ANSI.RED_BOLD + "No any tasks were found to remove! Please add tasks before changing stautus!" + ANSI.RESET);
         }for(Task task : tasks){
             if(task.getId() != id){
-                System.out.println("No any task with id " + id + " was found! Please input correct id again");
+                System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
             }else{
                 task.markIncomplete();
-                System.out.println("Task with id " + id + " is marked incomplete!" );
+                System.out.println(ANSI.GREEN_BOLD + "Task with id " + id + " is marked incomplete!" + ANSI.RESET);
             }
         }
     }
 }
 
-// TODO: Require proper formatting of the toString() method  

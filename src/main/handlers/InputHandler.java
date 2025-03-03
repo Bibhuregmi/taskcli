@@ -1,6 +1,7 @@
 package main.handlers;
 
 import java.util.Scanner;
+import main.utils.ANSI;
 
 public class InputHandler {
     //method to handle the input type mismatch 
@@ -8,13 +9,13 @@ public class InputHandler {
         int value; //input value
         while(true){
             try {
-                System.out.println(command);
+                System.out.println(ANSI.GREEN_BOLD + command + ANSI.RESET);
                 value = in.nextInt();
                 in.nextLine(); //consuming the newline character
                 return value; 
             } catch (Exception e) {
                 in.nextLine();
-                System.out.println("Please input only numbers\n");
+                System.out.println(ANSI.RED_BOLD + "Please input only numbers\n" + ANSI.RESET);
             }
         }
     }

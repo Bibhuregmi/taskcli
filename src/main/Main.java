@@ -1,8 +1,8 @@
 package main;
 
 import java.util.Scanner;
-
 import main.handlers.InputHandler;
+import main.utils.ANSI;
 
 public class Main {
 
@@ -12,13 +12,13 @@ public class Main {
     
     public static void main(String[] args) {
         while(true){
-            System.out.println("============> TASK MANAGER <============");
-            System.out.println("1. Add Task: ");
-            System.out.println("2. Remove Task: ");
-            System.out.println("3. List all Tasks: ");
-            System.out.println("4. Mark Task as done: ");
-            System.out.println("5. Mark Task as Incomplete: ");
-            System.out.println("6. Exit: ");
+            System.out.println(ANSI.YELLOW_BOLD + "============> TASK MANAGER <============\n" + ANSI.RESET);
+            System.out.println(ANSI.GREEN_BOLD + "1. Add Task: "+ ANSI.RESET);
+            System.out.println(ANSI.RED_BOLD + "2. Remove Task: "+ ANSI.RESET);
+            System.out.println(ANSI.BLUE_BOLD + "3. List all Tasks: "+ ANSI.RESET);
+            System.out.println(ANSI.PURPLE_BOLD + "4. Mark Task as done: "+ ANSI.RESET);
+            System.out.println(ANSI.CYAN_BOLD + "5. Mark Task as Incomplete: "+ ANSI.RESET);
+            System.out.println(ANSI.WHITE_BOLD + "6. Exit: \n");
 
 
             int cases = in.nextInt();
@@ -42,10 +42,10 @@ public class Main {
     private static void addTask(){
             int id = InputHandler.getValidInteger(in, "Enter task id: ");
             
-            System.out.println("Enter your task title: ");
+            System.out.println(ANSI.GREEN_BOLD + "Enter your task title: " + ANSI.RESET);
             String title = in.nextLine(); 
 
-            System.out.println("Enter your task desription: ");
+            System.out.println(ANSI.GREEN_BOLD + "Enter your task desription: " + ANSI.RESET);
             String description = in.nextLine(); 
 
             Task task = new Task(id, title, description);
@@ -53,21 +53,21 @@ public class Main {
     }
 
     private static void removeTask(){
-        System.out.println("Enter the id of the task: ");
+        System.out.println(ANSI.GREEN_BOLD + "Enter the id of the task: " + ANSI.RESET);
         int id = in.nextInt(); 
         in.nextLine(); 
         taskmanager.removeTask(id);
     }
 
     private static void setStatusCompleted(){
-        System.out.println("Enter the id of the completed task: ");
+        System.out.println(ANSI.GREEN_BOLD + "Enter the id of the completed task: " + ANSI.RESET);
         int id = in.nextInt();
         in.nextLine(); 
         taskmanager.setStatusCompleted(id);
     }
 
     private static void setStatusIncomplete(){
-        System.out.println("Enter the id of the incomplete task: ");
+        System.out.println(ANSI.GREEN_BOLD + "Enter the id of the incomplete task: " + ANSI.RESET);
         int id = in.nextInt(); 
         in.nextLine(); 
         taskmanager.setStautsIncomplete(id);
@@ -75,4 +75,3 @@ public class Main {
 }
 
 // TODO: Require file handling so that all the tasks are saved in the seperate text file 
-// TODO: Add ANSI escape code to style the terminal 

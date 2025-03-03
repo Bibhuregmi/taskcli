@@ -1,5 +1,5 @@
 package main;
-
+import main.utils.ANSI;
 public class Task{
     private int id;
     private String title; 
@@ -53,10 +53,10 @@ public class Task{
 
     @Override
     public String toString(){
-        return "Task id: " + id + 
-            "\nTitle: " + title + 
-            "\nDescription: " + description + 
-            "\nStauts: " + (status ? "Completed" : "Incomplete"); 
+        return ANSI.WHITE_BOLD + "Task id: " + ANSI.GREEN_BOLD + id + ANSI.RESET +
+            ANSI.WHITE_BOLD + "\nTitle: " + ANSI.GREEN_BOLD + title + ANSI.RESET +
+            ANSI.WHITE_BOLD + "\nDescription: " + ANSI.GREEN_BOLD + description + ANSI.RESET +
+            ANSI.WHITE_BOLD + "\nStauts: " + ANSI.GREEN_BOLD + ( status ? ANSI.GREEN_BOLD + "Completed" + ANSI.RESET : ANSI.RED_BOLD+ "Incomplete" + ANSI.RESET) + ANSI.RESET ; 
     }
 }
 
