@@ -50,6 +50,14 @@ public class Task{
     public void markIncomplete(){
         this.status = false; 
     }
+
+    @Override
+    public String toString(){
+        return "Task id: " + id + 
+            "\nTitle: " + title + 
+            "\nDescription: " + description + 
+            "\nStauts: " + (status ? "Completed" : "Incomplete"); 
+    }
 }
 
 
