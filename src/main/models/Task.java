@@ -1,11 +1,13 @@
 package main.models;
+import java.util.Date;
+
 import main.utils.ANSI;
 public class Task{
     private int id;
     private String title; 
     private String description; 
     private boolean status;  //true is for completed and false is for not completed
-    
+    private Date timestamp; 
     //Constructor for creating a task manually
     public Task(int id, String title, String description){
         this.id  = id;
@@ -13,11 +15,12 @@ public class Task{
         this. description = description; 
         this.status = false;
     }
-    public Task(int id, String title, String description, boolean status){
+    public Task(int id, String title, String description, boolean status, Date timestamp){
         this.id  = id;
         this.title = title; 
         this. description = description; 
         this.status = status; 
+        this.timestamp = timestamp; 
     }
 
     //getters
@@ -32,6 +35,9 @@ public class Task{
     }
     public boolean getStatus(){
         return status; 
+    }
+    public Date getCreatedAt(){
+        return timestamp; 
     }
 
 
@@ -61,8 +67,9 @@ public class Task{
     public String toString(){
         return ANSI.WHITE_BOLD + "Task id: " + ANSI.GREEN_BOLD + id + ANSI.RESET +
             ANSI.WHITE_BOLD + "\nTitle: " + ANSI.GREEN_BOLD + title + ANSI.RESET +
-            ANSI.WHITE_BOLD + "\nDescription: " + ANSI.GREEN_BOLD + description + ANSI.RESET +
-            ANSI.WHITE_BOLD + "\nStauts: " + ANSI.GREEN_BOLD + ( status ? ANSI.GREEN_BOLD + "Completed" + ANSI.RESET : ANSI.RED_BOLD+ "Incomplete" + ANSI.RESET) + ANSI.RESET ; 
+            ANSI.WHITE_BOLD + "\nDescription: " + ANSI.GREEN_BOLD + description + ANSI.RESET + 
+            ANSI.WHITE_BOLD + "\nStauts: " + ANSI.GREEN_BOLD + ( status ? ANSI.GREEN_BOLD + "Completed" + ANSI.RESET : ANSI.RED_BOLD+ "Incomplete" + ANSI.RESET) + ANSI.RESET +
+            ANSI.WHITE_BOLD + "\nCreated At: " + ANSI.GREEN_BOLD + timestamp + ANSI.RESET ;
     }
 }
 
