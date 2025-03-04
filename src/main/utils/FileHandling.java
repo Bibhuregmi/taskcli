@@ -167,7 +167,7 @@ public class FileHandling {
                     writer.newLine();
                 }
                 writer.close();
-                System.out.println(ANSI.GREEN_BOLD + "Task with ID " + id + " marked as incoomplete" + ANSI.RESET);
+                System.out.println(ANSI.GREEN_BOLD + "Task with ID " + id + " marked as incomplete" + ANSI.RESET);
                 return true; 
 
             } catch (Exception e) {
