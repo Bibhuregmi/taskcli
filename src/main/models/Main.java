@@ -41,7 +41,13 @@ public class Main {
     }
 
     private static void addTask(){
-            int id = InputHandler.getValidInteger(in, "Enter task id: ");
+            int id;
+            do {
+                id = InputHandler.getValidInteger(in, "Enter task id: ");
+                if (!taskmanager.checkId(id)) { // Check if the ID already exists
+                    System.out.println(ANSI.RED_BOLD + "ID already exists! Please enter a new ID." + ANSI.RESET);
+                }
+            } while (!taskmanager.checkId(id));
             
             System.out.println(ANSI.GREEN_BOLD + "Enter your task title: " + ANSI.RESET);
             String title = in.nextLine(); 
@@ -50,7 +56,7 @@ public class Main {
             String description = in.nextLine(); 
 
             Task task = new Task(id, title, description);
-            taskmanager.addTask(task);
+            taskmanager.addTask(id, task);
     }
 
     private static void removeTask(){

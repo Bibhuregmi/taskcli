@@ -12,24 +12,29 @@ public class TaskManager {
         this.tasks = FileHandling.loadTasksFromFiles(); //loadin tasks from the files
     }
 
-    //method to add new task 
-    public void addTask(Task task){
-        //added check for the id
+    public boolean checkId(int id){
         for(Task t: tasks){
-            if(t.getId() == task.getId()){
-                System.out.println(ANSI.RED_BOLD + "The task with id " + t.getId() + " already exists" + ANSI.RESET);
-                return; 
+            if(t.getId() == id){
+                return false; 
             }
         }
-        tasks.add(task);
-        FileHandling.saveTasktoFile(task); //saving the task to the file
-        System.out.println(ANSI.GREEN_BOLD + "New task has been created!" + ANSI.RESET); //.RESET ensures that only the intended text is styled and rest of the output remains same
+        return true; 
+    }
+
+    //method to add new task 
+    public void addTask(int id, Task task){
+        if(checkId(id)){
+            tasks.add(task);
+            FileHandling.saveTasktoFile(task); //saving the task to the file
+            System.out.println(ANSI.GREEN_BOLD + "New task has been created!" + ANSI.RESET); //.RESET ensures that only the intended text is styled and rest of the output remains same
+        }
     }
 
     //method to remove the task
     public int removeTask(int id){
         FileHandling.deleteTaskFiles(id);
         tasks.removeIf(task -> task.getId() == id); //this will remove only if the id of the targeted task matches with the passed id
+        System.out.println(ANSI.GREEN_BOLD + "Task with id " + id + " has been removed!" + ANSI.RESET);
         return id; 
     }
     
