@@ -14,6 +14,13 @@ public class TaskManager {
 
     //method to add new task 
     public void addTask(Task task){
+        //added check for the id
+        for(Task t: tasks){
+            if(t.getId() == task.getId()){
+                System.out.println(ANSI.RED_BOLD + "The task with id " + t.getId() + " already exists" + ANSI.RESET);
+                return; 
+            }
+        }
         tasks.add(task);
         FileHandling.saveTasktoFile(task); //saving the task to the file
         System.out.println(ANSI.GREEN_BOLD + "New task has been created!" + ANSI.RESET); //.RESET ensures that only the intended text is styled and rest of the output remains same
@@ -21,28 +28,21 @@ public class TaskManager {
 
     //method to remove the task
     public int removeTask(int id){
-        if(tasks.isEmpty()){
-            System.out.println(ANSI.RED_BOLD + "No any tasks were found to remove! Please add tasks before removing!" + ANSI.RESET);
-        }
-        for(Task task : tasks){
-            if(task.getId() != id){
-                System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
-            }else{
-                FileHandling.deleteTaskFiles(id); 
-                System.out.println(ANSI.GREEN_BOLD +"Task with id " + id + " was removed successfully!" + ANSI.RESET);
-            }
-        }
+        FileHandling.deleteTaskFiles(id);
+        tasks.removeIf(task -> task.getId() == id); //this will remove only if the id of the targeted task matches with the passed id
         return id; 
     }
     
     //method to show all the task
     public void showAllTasks(){
-        if(tasks.isEmpty()){
+        List<Task> loadedTask = FileHandling.loadTasksFromFiles();
+        if(loadedTask.isEmpty()){
             System.out.println(ANSI.RED_BOLD + "No any  tasks to show" + ANSI.RESET);
-        }else{
-            for(Task task : tasks){
-                System.out.println(task.toString());
-            }
+            return; 
+        }
+        for(Task task : loadedTask){
+            System.out.println(task.toString());
+            System.out.println("==================================================\n");
         }
     }
 
@@ -50,28 +50,36 @@ public class TaskManager {
     public void setStatusCompleted(int id){
         if(tasks.isEmpty()){
             System.out.println(ANSI.RED_BOLD + "No any tasks were found to remove! Please add tasks before changing stautus!" + ANSI.RESET);
-        }for(Task task : tasks){
-            if(task.getId() != id){
-                System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
-            }else{
-                task.markCompleted();
-                System.out.println(ANSI.GREEN_BOLD + "Task with id " + id + " is marked completed!" + ANSI.RESET);
+            return;
+        }
+        boolean found = false; //flag to check if the task exists   
+        for(Task task : tasks){
+            if(task.getId() == id){
+                task.markCompleted(); // marking the task as completed in memory
+                FileHandling.updateStatusCompleted(id);
+                found = true; 
+                break; 
             }
         }
+        if(!found) System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
     }
 
     //method to set incompleted status
     public void setStautsIncomplete(int id){
         if(tasks.isEmpty()){
             System.out.println(ANSI.RED_BOLD + "No any tasks were found to remove! Please add tasks before changing stautus!" + ANSI.RESET);
-        }for(Task task : tasks){
-            if(task.getId() != id){
-                System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
-            }else{
-                task.markIncomplete();
-                System.out.println(ANSI.GREEN_BOLD + "Task with id " + id + " is marked incomplete!" + ANSI.RESET);
+            return;
+        }
+        boolean found = false; //flag to check if the task exists   
+        for(Task task : tasks){
+            if(task.getId() == id){
+                task.markIncomplete(); // marking the task as incomplete in memory
+                FileHandling.updateStatusInComplete(id);
+                found = true; 
+                break; 
             }
         }
+        if(!found) System.out.println(ANSI.RED_BOLD + "No any task with id " + id + " was found! Please input correct id again" + ANSI.RESET);
     }
 }
 
