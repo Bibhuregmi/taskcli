@@ -2,6 +2,8 @@
 
 A simple Command-Line Interface (CLI) Task Tracker built with Java. This application allows users to add, remove, list, and mark tasks as complete or incomplete while persisting data using file handling.
 
+[Project solution](https://roadmap.sh/projects/task-tracker)
+
 ## Installation
 
 Clone the repo
